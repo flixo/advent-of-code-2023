@@ -1,6 +1,8 @@
 use core::num;
 use std::collections::HashMap;
 
+use itertools::Itertools;
+
 advent_of_code::solution!(3);
 
 #[derive(Debug, Clone, Eq, Hash, PartialEq, Copy)]
@@ -134,43 +136,12 @@ pub fn part_two(input: &str) -> Option<u32> {
     });
 
     let ans: u32 = schematic.symbols.values().filter(|symbol| {
-        println!("{:?}", symbol.cog_val);
         symbol.cog_val.len() == 2
     }).map(|symbol| {
         symbol.cog_val[0] * symbol.cog_val[1]
     }).sum();
 
-    println!("{:?}", ans);
-
-    // schematic.numbers.iter().map(|number| {
-    //     let cogs = number.neighbouring_coords().iter().filter(|coord| {
-    //         if let Some(symbol) = schematic.symbols.get(coord) {
-    //             if symbol.value == '*' {
-    //                 true
-    //             } else {
-    //                 false
-    //             }
-    //         } else {
-    //             false
-    //         }
-    //     }).collect();
-
-    //     if cogs.count() == 2 {
-    //         let c1 = cogs.next().unwrap();
-    //         let c2 = cogs.next().unwrap();
-    //         0
-    //     } else {
-    //         0
-    //     }
-    // });
-
-
-
-    None
-    //number.neighbouring_coords().iter().any(|coord| {
-    //
-    //    let sym = schematic.symbols.get(coord);
-    //})
+    Some(ans)
 }
 
 #[cfg(test)]
@@ -186,6 +157,6 @@ mod tests {
     #[test]
     fn test_part_two() {
         let result = part_two(&advent_of_code::template::read_file("examples", DAY));
-        assert_eq!(result, None);
+        assert_eq!(result, Some(467835));
     }
 }
